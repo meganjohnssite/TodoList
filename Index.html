@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>My To Do list</title>
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<style type="text/css">
+	img, h1{
+		margin: 10px;
+	}
+    h3{
+    	margin-top: 15px;
+    	color: #FFFFFF;
+    	font-family: Optima;
+    }
+    #note{
+    	background-color: #E27D60;
+    }
+    #tasks{
+    	font-size:16pt;
+    	color:#FFFFFF;
+    	font-family: Optima;
+    }
+
+</style>
+</head>
+<body>
+<div class="container">
+	
+		 <div class="row">
+		 	<div class="col-sm-4">
+		 		<h1>My To Do List</h1>
+		 			<div class="form-group">
+                			<input type="text" class="form-control form-control-lg" id="new" name="new" placeholder="Enter Task Here">
+                	</div>
+                	<button type="button" onClick="addTask();" class="btn btn-info">Add Task</button>
+                	<button type="button" onClick="clearTask();" class="btn btn-dark">Clear Tasks</button>
+
+                		 <div id="note">
+          						<h3>My Current Tasks:</h3>
+                					<ol id="tasks"> </ol>	
+                		</div>
+                
+		 	</div>	
+          	<div class="col-sm-8">
+          		<img src="productivity.jpg" class="img-fluid" alt="picture of to-do list board">
+          	</div>
+         </div> 
+
+        	
+</div>	
+
+<script>
+
+function init() {
+			let list = document.getElementById("tasks");
+			list.onclick = update;
+		}
+
+//add a new task
+
+		function addTask() {
+			let newTask = document.getElementById("new");
+
+			if (newTask.value != "") {
+			let list = document.getElementById("tasks");
+			let li = document.createElement("li");
+			li.innerHTML = `<span class="delete">&times;</span><input type="checkbox" class="done"> <label>${newTask.value}</label>`;
+			list.appendChild(li);
+			}
+			else alert ("Enter a Task in the Box")
+			newTask.value = null; 
+		}
+
+		// Change the list depending on the action and task clicked.
+		function update(event) {
+			if (event.target.className == "delete") {
+				let task = event.target.parentNode;
+				let list = task.parentNode;
+				list.removeChild(task);
+			}
+
+			if (event.target.className == "done") {
+				let checkbox = event.target;
+				let task = checkbox.nextSibling.nextSibling;
+				if (checkbox.checked) {
+					task.style.color = "#50C878";
+				}
+				else {
+					task.style.color = "#FFFFFF";
+				}
+			}
+		}
+
+		// Remove any tasks from the list.
+		function clearTask() {
+			let list = document.getElementById("tasks");
+			list.innerHTML = null;
+		}
+
+		// Make sure to initialize the script.
+		init();
+
+
+
+</script>	
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
